@@ -39,7 +39,7 @@ module DockerCookbook
     property :ip_address, String
     property :mac_address, String
     property :memory, [String, Integer], coerce: proc { |v| coerce_to_bytes(v) }, default: 0
-    property :memory_swap, [String, Integer], coerce: proc { |v| coerce_to_bytes(v) }, default: 0
+    property :memory_swap, [String, Integer], coerce: proc { |v| coerce_to_bytes(v) }, default: 0, desired_state: false
     property :memory_swappiness, Integer, default: 0
     property :memory_reservation, Integer, coerce: proc { |v| coerce_to_bytes(v) }, default: 0
     property :network_disabled, [true, false], default: false
@@ -66,13 +66,13 @@ module DockerCookbook
     property :timeout, Integer, desired_state: false
     property :tty, [true, false], default: false
     property :ulimits, [Array, nil], coerce: proc { |v| coerce_ulimits(v) }
-    property :user, String, default: ''
+    property :user, String, default: '', desired_state: false
     property :userns_mode, String, default: ''
     property :uts_mode, String, default: ''
     property :volumes, PartialHashType, default: {}, coerce: proc { |v| coerce_volumes(v) }
     property :volumes_from, [String, Array], coerce: proc { |v| v.nil? ? nil : Array(v) }
     property :volume_driver, String
-    property :working_dir, String, default: ''
+    property :working_dir, String, default: '', desired_state: false
 
     # Used to store the bind property since binds is an alias to volumes
     property :volumes_binds, Array
